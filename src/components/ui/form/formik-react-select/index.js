@@ -64,39 +64,25 @@ const FormikReactSelect = (props) => {
 
     return (
         <>
-            <div className="flex flex-col gap-5">
-                <div
-                    className={
-                        'text-right w-full    ' +
-                        (mandatory ? 'flex justify-start items-center gap-2' : '')
+
+            <ReactSelect
+                {...field}
+                defaultValue={getSingleValue()}
+                onChange={(data) => {
+                    onChange && onChange(data);
+                    if (props?.isMulti) {
+                        setFieldValue(
+                            name,
+                            data?.map((d) => d.value),
+                        );
+                    } else {
+                        setFieldValue(name, data.value);
                     }
-                >
-                    {
-                        mandatory ?
-                            <p className='h-5 text-base font-bold text-red-600'>*</p>
-                            :
-                            null
-                    }
-                    <label className="">{props.label}</label>
-                </div>
-                <ReactSelect
-                    {...field}
-                    defaultValue={getSingleValue()}
-                    onChange={(data) => {
-                        onChange && onChange(data);
-                        if (props?.isMulti) {
-                            setFieldValue(
-                                name,
-                                data?.map((d) => d.value),
-                            );
-                        } else {
-                            setFieldValue(name, data.value);
-                        }
-                    }}
-                    {...rest}
-                />
-                {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>}
-            </div>
+                }}
+                {...rest}
+            />
+            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>}
+
         </>
     );
 };

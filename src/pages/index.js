@@ -19,6 +19,8 @@ import { statusCard } from '../components/Providers'
 
 import GoogleMapReact from 'google-map-react';
 import CardDestination from "../components/ui/card/card-destination";
+import CardParsels from "../components/ui/card/card-parsels";
+import CardTransport from "../components/ui/card/card-transport";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -45,16 +47,17 @@ export default function Home() {
   };
   const { setTheme } = useTheme()
 
-  const { newCard } = useContext(statusCard)
+  const { cardOriginStatus } = useContext(statusCard)
 
-  console.log(newCard, "newCard")
   return (
     <PageContainer>
       <LeftSideContainer>
-        <div className="h-screen pl-2 pr-5 space-y-3 bg-gray-200">
-          <CardOrigin />
-          <CardDestination />
-        </div>
+
+        <CardOrigin />
+        <CardDestination />
+        <CardParsels />
+        <CardTransport />
+
       </LeftSideContainer>
       <RightSideContainer>
         <div style={{ height: '100vh', width: '100%' }}>

@@ -6,9 +6,18 @@ import { createContext, useState } from "react"
 export const statusCard = createContext()
 
 const Providers = ({ children }) => {
-    const [newCard, setNewCard] = useState(false)
+
+    const [cardOriginStatus, setCardOriginStatus] = useState(true)
+    const [cardDestinationStatus, setCardDestinationStatus] = useState(false)
+    const [cardParselsStatus, setCardParselsStatus] = useState(false)
+    const [cardTransportStatus, setCardTransportStatus] = useState(false)
+
     return (
-        <statusCard.Provider value={{ newCard, setNewCard }}>
+        <statusCard.Provider value={{
+            cardOriginStatus, setCardOriginStatus,
+            cardDestinationStatus, setCardDestinationStatus,
+            cardParselsStatus, setCardParselsStatus, cardTransportStatus, setCardTransportStatus
+        }}>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
                 {children}
             </ThemeProvider>

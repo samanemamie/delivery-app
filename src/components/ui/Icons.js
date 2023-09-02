@@ -5,7 +5,8 @@ import {
     Sun,
     Laptop,
     MapPin,
-    GitFork
+    GitFork,
+    HelpCircle
 } from 'lucide-react'
 
 
@@ -17,7 +18,8 @@ export const Icons = {
     Moon,
     Laptop,
     MapPin,
-    GitFork
+    GitFork,
+    HelpCircle
 }
 
 export default Icons

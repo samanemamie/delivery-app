@@ -22,12 +22,16 @@ const feedingSystem2 = [
 
 
 function CardOrigin() {
-    const { setNewCard } = useContext(statusCard)
+    const { cardOriginStatus, setCardOriginStatus, setCardDestinationStatus } = useContext(statusCard)
 
+    console.log(cardOriginStatus, "cardOriginStatus")
+
+    console.log(cardOriginStatus, "cardOriginStatus")
 
     const onSubmitForm = async (values, onSubmitProps) => {
         console.log(values, "values")
-        setNewCard(true)
+        setCardOriginStatus(false)
+        setCardDestinationStatus(true)
     }
 
 
@@ -42,7 +46,7 @@ function CardOrigin() {
                         phoneNumber: "",
                         sendersName: "",
                     }}
-                    validationSchema={advancedSchema}
+                    // validationSchema={advancedSchema}
                     onSubmit={onSubmitForm}
                 >
                     {(props) => {
@@ -51,48 +55,64 @@ function CardOrigin() {
 
                                 <Form
                                     onSubmit={props.handleSubmit}
-                                    className="space-y-3 text-gray-400"
+                                    className="space-y-3 text-gray-400 min-h-[70px]"
                                 >
+
                                     <div className='flex items-center justify-between text-base font-normal'>
                                         <p className="inline-flex items-center dark:text-white">
                                             <Icons.MapPin color="blue" size={20} />
-
-
                                             <span>Origin</span>
                                         </p>
-                                        <p className=" dark:text-white">
+                                        <p className="cursor-pointer dark:text-white">
+                                            {
+                                                cardOriginStatus ? ("Clear") : <span onClick={() => setCardOriginStatus(true)} >Edit</span>
+                                            }
 
-                                            Clear
                                         </p>
                                     </div>
-                                    <FormikReactSelect
-                                        name="address"
-                                        options={feedingSystem}
-                                    />
 
-                                    <FormikInput
-                                        label="More Details / Message for the Rider"
-                                        name="moreDetails"
-                                    />
-                                    <div className='flex items-center gap-2'>
-                                        <FormikInput
-                                            label="Phone Number"
-                                            name="phoneNumber"
-                                        />
-                                        <FormikInput
-                                            label="Senders Name"
-                                            name="sendersName"
-                                        />
-                                    </div>
-                                    <div className='flex items-center gap-2 pt-5' >
-                                        <Button variant='map' size='lg' >
-                                            Choose from Favourites
-                                        </Button>
-                                        <Button type={"submit"} variant='map' size='lg'>
-                                            Confirm Origin
-                                        </Button>
-                                    </div>
+                                    {
+                                        cardOriginStatus ?
 
+                                            <>
+                                                <div className="space-y-3 "
+
+                                                >
+                                                    <FormikReactSelect
+                                                        name="address"
+                                                        options={feedingSystem}
+                                                        label={'salam'}
+                                                    />
+
+                                                    <FormikInput
+                                                        label="More Details / Message for the Rider"
+                                                        name="moreDetails"
+                                                    />
+                                                    <div className='flex items-center gap-2'>
+                                                        <FormikInput
+                                                            label="Phone Number"
+                                                            name="phoneNumber"
+                                                        />
+                                                        <FormikInput
+                                                            label="Senders Name"
+                                                            name="sendersName"
+                                                        />
+                                                    </div>
+                                                    <div className='flex items-center gap-2 pt-5' >
+                                                        <Button variant='map' size='lg' >
+                                                            Choose from Favourites
+                                                        </Button>
+                                                        <Button type={"submit"} variant='map' size='lg'>
+                                                            Confirm Origin
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </>
+
+                                            :
+                                            <p className='px-3'>sadsadsas</p>
+
+                                    }
 
 
                                 </Form>

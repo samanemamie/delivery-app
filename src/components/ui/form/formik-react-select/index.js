@@ -16,6 +16,24 @@ export const ReactSelect = ({ label = "", options, value, defaultValue, isMulti 
         return value && options && options?.find((item) => item.value == value);
     };
 
+    const colourStyles = {
+        control: (styles, { isFocused }) => ({
+            ...styles,
+            backgroundColor: 'black',
+            position: 'relative',
+            height: '3.5rem',
+            borderRadius: '0.125rem',
+            backgroundColor: 'rgb(229 231 235)',
+            width: '100%',
+            minWidth: '200px',
+            border: 'none',
+            boxShadow: isFocused ? 'none' : undefined,
+            borderBottom: isFocused ? '2px solid  rgb(59 130 246)' : undefined,
+        }),
+
+        input: (styles) => ({ ...styles }),
+
+    };
     return (
         <RSelect
 
@@ -41,6 +59,7 @@ export const ReactSelect = ({ label = "", options, value, defaultValue, isMulti 
             defaultValue={
                 defaultValue ?? { value: "00", label: "انتخاب کنید", isOptionDisable: true }
             }
+            styles={colourStyles}
             options={options?.length ? options : []}
             noOptionsMessage={({ inputValue }) => "موردی یافت نشد!"}
             isMulti={isMulti}
@@ -81,7 +100,7 @@ const FormikReactSelect = (props) => {
                 }}
                 {...rest}
             />
-            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>}
+            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 focus:ring-0 ">{meta.error}</p>}
 
         </>
     );

@@ -29,7 +29,7 @@ const FormikRadioButtons = (props) => {
                                             checked={field.value === option.value}
                                             className={meta.touched && meta.error ? "w-[18px] h-[18px]" : "w-[18px] h-[18px] text-gray-200"}
                                         />
-                                        <label className="text-sm font-normal text-gray-500" htmlFor={option.value}>{option.key}</label>
+                                        <label className="text-sm font-normal text-gray-400" htmlFor={option.value}>{option.key}</label>
                                     </div>
                                 </React.Fragment>
                             )

@@ -1,9 +1,8 @@
 import { useContext } from 'react'
 
-import Icons from '../Icons';
 
+//
 import { Button } from '../Button';
-
 import { statusCard } from '../../../components/Providers';
 
 
@@ -49,7 +48,7 @@ function CardParsels() {
                         <p className=" dark:text-white">
                             Parsels's Type
                         </p>
-                        <p className=" dark:text-white">
+                        <p className="cursor-pointer dark:text-white">
                             {
                                 cardParselsStatus ? ("Clear") : <span onClick={() => setCardParselsStatus(true)} >Edit</span>
                             }

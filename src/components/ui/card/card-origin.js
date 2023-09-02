@@ -1,32 +1,26 @@
 import { useContext } from 'react'
-import FormikReactSelect from '../form/formik-react-select'
 import { Form, Formik } from "formik";
-import Icons from '../Icons';
-import FormikInput from '../form/formik-input';
-import { Button } from '../Button';
 
-import { statusCard } from '../../../components/Providers';
+
+
+//
+import FormikReactSelect from '../form/formik-react-select'
+import FormikInput from '../form/formik-input';
 import { advancedSchema } from '../../../lib/validations';
 
-const feedingSystem = [
-    { value: 1, label: "sam" },
-    { value: 2, label: "mil" },
-    { value: 3, label: "jav" },];
 
-const feedingSystem2 = [
-    { value: "manual", key: "Confirmation Code", id: "1" },
-    { value: "chain", key: "Note Needed", id: "2" },
 
-];
+//
+import Icons from '../Icons';
+import { Button } from '../Button';
+import { statusCard } from '../../../components/Providers';
 
 
 
 function CardOrigin() {
+
     const { cardOriginStatus, setCardOriginStatus, setCardDestinationStatus } = useContext(statusCard)
 
-    console.log(cardOriginStatus, "cardOriginStatus")
-
-    console.log(cardOriginStatus, "cardOriginStatus")
 
     const onSubmitForm = async (values, onSubmitProps) => {
         console.log(values, "values")
@@ -80,8 +74,8 @@ function CardOrigin() {
                                                 >
                                                     <FormikReactSelect
                                                         name="address"
-                                                        options={feedingSystem}
-                                                        label={'salam'}
+                                                        // options={feedingSystem}
+                                                        label={"Address"}
                                                     />
 
                                                     <FormikInput

@@ -29,31 +29,15 @@ export const ReactSelect = ({ label = "", options, value, defaultValue, isMulti 
             border: 'none',
             boxShadow: isFocused ? 'none' : undefined,
             borderBottom: isFocused ? '2px solid  rgb(59 130 246)' : undefined,
+            borderBottom: '2px solid rgb(156 163 175)'
         }),
 
         input: (styles) => ({ ...styles }),
 
     };
+
     return (
         <RSelect
-
-            // components={{ IndicatorSeparator: null, DropdownIndicator: DropdownArrow }}
-            // styles={{
-            //     container: (provided, state) => {
-            //         return {
-            //             ...provided,
-            //             marginTop: "5px",
-            //         };
-            //     },
-
-            //     control: (provided, state) => {
-            //         return {
-            //             ...provided,
-            //             border: "1px solid #ced4da",
-            //             borderRadius: ".25rem",
-            //         };
-            //     },
-            // }}
             placeholder={label}
             value={isMulti ? getMultiValues() : getSingleValue()}
             defaultValue={
@@ -61,7 +45,7 @@ export const ReactSelect = ({ label = "", options, value, defaultValue, isMulti 
             }
             styles={colourStyles}
             options={options?.length ? options : []}
-            noOptionsMessage={({ inputValue }) => "موردی یافت نشد!"}
+            noOptionsMessage={({ inputValue }) => "No options"}
             isMulti={isMulti}
             {...rest}
         />
@@ -100,7 +84,7 @@ const FormikReactSelect = (props) => {
                 }}
                 {...rest}
             />
-            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 focus:ring-0 ">{meta.error}</p>}
+            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>}
 
         </>
     );

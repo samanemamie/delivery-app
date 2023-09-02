@@ -1,9 +1,12 @@
 import { useContext } from 'react'
 
-import Icons from '../Icons';
 
+//
+import Icons from '../Icons';
 import { Button } from '../Button';
 
+
+//
 import { statusCard } from '../../../components/Providers';
 
 
@@ -11,6 +14,7 @@ import { statusCard } from '../../../components/Providers';
 
 
 function CardTransport() {
+
     const { cardTransportStatus, setCardTransportStatus } = useContext(statusCard)
 
     const data = [
@@ -38,12 +42,13 @@ function CardTransport() {
 
             <div className="w-full max-w-full px-3 py-3 bg-white border-b-2 border-gray-300 rounded-md shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
                 <div className="space-y-3 text-gray-400">
+
                     <div className='flex items-center justify-between text-base font-normal'>
                         <p className="inline-flex items-center gap-2 dark:text-white">
                             <span>Transporter Option</span>
                             <Icons.HelpCircle color="rgb(209 213 219)" size={20} />
                         </p>
-                        <p className=" dark:text-white">
+                        <p className="cursor-pointer dark:text-white">
                             {
                                 cardTransportStatus ? ("Clear") : <span onClick={() => setCardTransportStatus(true)} >Edit</span>
                             }

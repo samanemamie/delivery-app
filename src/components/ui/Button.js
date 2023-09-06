@@ -11,7 +11,7 @@ const buttonVariants = cva(
                 default:
                     'bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-100',
                 destructive: 'text-white hover:bg-red-600 dark:hover:bg-red-600',
-                map: ' relative z-30 inline-flex items-center justify-center w-full  overflow-hidden text-base font-normal text-blue-300 transition-all duration-500 border border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50 hover:from-gray-50 hover:to-white active:to-white',
+                map: ' relative  inline-flex items-center justify-center w-full  overflow-hidden text-base font-normal text-blue-300 transition-all duration-500 border border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50 hover:from-gray-50 hover:to-white active:to-white',
                 outline:
                     'bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-700',
                 subtle:

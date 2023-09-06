@@ -17,9 +17,14 @@ import { statusCard } from '../../../components/Providers';
 
 
 
-function CardOrigin() {
+
+
+
+function CardOrigin({ panTo }) {
 
     const { cardOriginStatus, setCardOriginStatus, setCardDestinationStatus } = useContext(statusCard)
+
+
 
 
     const onSubmitForm = async (values, onSubmitProps) => {
@@ -27,8 +32,6 @@ function CardOrigin() {
         setCardOriginStatus(false)
         setCardDestinationStatus(true)
     }
-
-
     return (
         <>
 
@@ -74,8 +77,9 @@ function CardOrigin() {
                                                 >
                                                     <FormikReactSelect
                                                         name="address"
-                                                        // options={feedingSystem}
-                                                        label={"Address"}
+                                                        label="Address"
+                                                        placeholder={"Address"}
+                                                        panTo={panTo}
                                                     />
 
                                                     <FormikInput

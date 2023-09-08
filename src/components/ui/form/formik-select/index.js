@@ -1,5 +1,5 @@
 import { useField, useFormikContext } from "formik";
-import RSelect from 'react-select';
+
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -14,43 +14,10 @@ import {
 } from "@reach/combobox";
 
 import Icons from "../../Icons";
-import { useCallback, useRef } from "react";
-
-export const ReactSelect = ({ label = "", options, value, defaultValue, isMulti = false, ...rest }) => {
-
-    const getMultiValues = () => {
-        let results = [];
-        value &&
-            options &&
-            value?.map((val) => results.push(options?.find((option) => option.value == val)));
-        return results;
-    };
-    const getSingleValue = () => {
-        return value && options && options?.find((item) => item.value == value);
-    };
 
 
 
-    return (
-        <RSelect
-            placeholder={label}
-            value={isMulti ? getMultiValues() : getSingleValue()}
-            defaultValue={
-                defaultValue ?? { value: "00", label: "انتخاب کنید", isOptionDisable: true }
-            }
-            styles={colourStyles}
-            options={options?.length ? options : []}
-            noOptionsMessage={({ inputValue }) => "No options"}
-            isMulti={isMulti}
-            {...rest}
-        />
-    );
-};
-
-
-
-
-export const FormikReactSelect = (props) => {
+export const FormikSelect = (props) => {
 
     const [field, meta] = useField(props);
     const { panTo, label, name, onBlur, ...rest } = props;
@@ -69,7 +36,7 @@ export const FormikReactSelect = (props) => {
         },
     });
 
-    // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
+
 
     const handleInput = (e) => {
         setValue(e.target.value);
@@ -83,6 +50,9 @@ export const FormikReactSelect = (props) => {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
+
+
+            setFieldValue(name, address);
         } catch (error) {
             console.log("😱 Error: ", error);
         }
@@ -93,10 +63,13 @@ export const FormikReactSelect = (props) => {
     return (
         <>
 
-            <Combobox className="relative h-14 rounded-sm  bg-gray-200 w-full  min-w-[200px]" onSelect={handleSelect}>
+            <Combobox className="relative h-14 rounded-sm  bg-gray-200 w-full  min-w-[200px]"
+                onSelect={handleSelect}
+            >
                 <ComboboxInput
                     className={`peer h-full w-full ${meta.touched && meta.error ? "border-b border-red-500 focus:border-b-2 focus:border-red-500 focus:after:border-red-500 " : "border-b-2 border-gray-400 focus:border-b-2 focus:border-blue-500 focus:after:border-blue-500 "} px-3  bg-transparent pt-4 pb-1.5 font-sans text-base font-normal text-gray-600 outline outline-0 transition-all  focus:outline-0 `}
-                    defaultValue={"sad"}
+                    {...field}
+
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
@@ -152,4 +125,4 @@ export const FormikReactSelect = (props) => {
 
 
 
-export default FormikReactSelect;
+export default FormikSelect;

@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 
 
 //
-import FormikReactSelect from '../form/formik-react-select'
+import FormikSelect from '../form/formik-select'
 import FormikInput from '../form/formik-input';
 import { advancedSchema } from '../../../lib/validations';
 
@@ -13,6 +13,10 @@ import { advancedSchema } from '../../../lib/validations';
 //
 import Icons from '../Icons';
 import { Button } from '../Button';
+
+
+
+//
 import { statusCard } from '../../../components/Providers';
 
 
@@ -26,11 +30,12 @@ function CardOrigin({ panTo }) {
 
 
 
-
     const onSubmitForm = async (values, onSubmitProps) => {
-        console.log(values, "values")
+
         setCardOriginStatus(false)
         setCardDestinationStatus(true)
+
+        console.log(values, "values")
     }
     return (
         <>
@@ -38,7 +43,7 @@ function CardOrigin({ panTo }) {
             <div className="w-full max-w-full px-3 py-3 bg-white border-b-2 border-gray-300 rounded-md shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
                 <Formik
                     initialValues={{
-                        address: "",
+                        originAddress: "",
                         moreDetails: "",
                         phoneNumber: "",
                         sendersName: "",
@@ -62,7 +67,7 @@ function CardOrigin({ panTo }) {
                                         </p>
                                         <p className="cursor-pointer dark:text-white">
                                             {
-                                                cardOriginStatus ? ("Clear") : <span onClick={() => setCardOriginStatus(true)} >Edit</span>
+                                                cardOriginStatus ? < span onClick={() => props.resetForm()} >Clear</span> : <span onClick={() => setCardOriginStatus(true)} >Edit</span>
                                             }
 
                                         </p>
@@ -75,8 +80,8 @@ function CardOrigin({ panTo }) {
                                                 <div className="space-y-3 "
 
                                                 >
-                                                    <FormikReactSelect
-                                                        name="address"
+                                                    <FormikSelect
+                                                        name="originAddress"
                                                         label="Address"
                                                         placeholder={"Address"}
                                                         panTo={panTo}
@@ -97,7 +102,7 @@ function CardOrigin({ panTo }) {
                                                         />
                                                     </div>
                                                     <div className='flex items-center gap-2 pt-5' >
-                                                        <Button variant='map' size='lg' >
+                                                        <Button type={"button"} variant='map' size='lg' >
                                                             Choose from Favourites
                                                         </Button>
                                                         <Button type={"submit"} variant='map' size='lg'>

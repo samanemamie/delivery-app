@@ -12,11 +12,18 @@ const Providers = ({ children }) => {
     const [cardParselsStatus, setCardParselsStatus] = useState(false)
     const [cardTransportStatus, setCardTransportStatus] = useState(false)
 
+
+
+
+
+
     return (
         <statusCard.Provider value={{
             cardOriginStatus, setCardOriginStatus,
             cardDestinationStatus, setCardDestinationStatus,
-            cardParselsStatus, setCardParselsStatus, cardTransportStatus, setCardTransportStatus
+            cardParselsStatus, setCardParselsStatus,
+            cardTransportStatus, setCardTransportStatus
+
         }}>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
                 {children}

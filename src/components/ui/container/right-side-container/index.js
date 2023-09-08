@@ -1,7 +1,7 @@
 function RightSideContainer({ children }) {
     return (
         <>
-            <div className="col-span-8 ">{children}</div>
+            <div className="w-full col-span-8">{children}</div>
         </>
     );
 }

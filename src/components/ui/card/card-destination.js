@@ -1,20 +1,31 @@
 import { useContext } from 'react'
-import FormikReactSelect from '../form/formik-react-select'
+
+
+
+
+//
 import { Form, Formik } from "formik";
-import Icons from '../Icons';
 import FormikInput from '../form/formik-input';
-import { Button } from '../Button';
-
-import { statusCard } from '../../../components/Providers';
-import { advancedSchema } from '../../../lib/validations';
+import FormikSelect from '../form/formik-select'
 import FormikRadioButtons from '../form/formik-radio-buttons';
+import { advancedSchema } from '../../../lib/validations';
 
-const feedingSystem = [
-    { value: 1, label: "sam" },
-    { value: 2, label: "mil" },
-    { value: 3, label: "jav" },];
 
-const feedingSystem2 = [
+
+//
+import { Button } from '../Button';
+import Icons from '../Icons';
+
+
+
+//
+import { statusCard } from '../../../components/Providers';
+
+
+
+
+
+const radioOptions = [
     { value: "manual", key: "Confirmation Code", id: "1" },
     { value: "chain", key: "Note Needed", id: "2" },
 
@@ -22,7 +33,7 @@ const feedingSystem2 = [
 
 
 
-function CardDestination() {
+function CardDestination({ panTo }) {
 
     const { cardDestinationStatus, setCardDestinationStatus, setCardParselsStatus } = useContext(statusCard)
 
@@ -76,9 +87,11 @@ function CardDestination() {
                                             <>
                                                 <div className="space-y-3 "
                                                 >
-                                                    <FormikReactSelect
-                                                        name="address"
-                                                        options={feedingSystem}
+                                                    <FormikSelect
+                                                        name="destinationAddress"
+                                                        label="Address"
+                                                        placeholder={"Address"}
+                                                        panTo={panTo}
                                                     />
 
                                                     <FormikInput
@@ -100,7 +113,7 @@ function CardDestination() {
                                                     <div className='flex items-center gap-[105px] pt-2'>
                                                         <FormikRadioButtons label=" سیستم پرورش"
                                                             name="breeding_system"
-                                                            options={feedingSystem2}
+                                                            options={radioOptions}
 
                                                         />
                                                     </div>

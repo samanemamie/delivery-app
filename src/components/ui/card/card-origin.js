@@ -37,6 +37,8 @@ function CardOrigin({ panTo }) {
 
         console.log(values, "values")
     }
+
+
     return (
         <>
 

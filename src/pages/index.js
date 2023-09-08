@@ -73,7 +73,7 @@ export default function Home() {
   };
 
 
-  const { isLoaded, loadError } = useLoadScript({
+  const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyASGf3xaQKOEsMZaYET96y4yh0GI9oI4pk",
     libraries,
   });
@@ -117,8 +117,6 @@ export default function Home() {
       </LeftSideContainer>
       <RightSideContainer>
 
-
-
         <GoogleMap
           id="map"
           mapContainerStyle={mapContainerStyle}
@@ -126,7 +124,6 @@ export default function Home() {
 
           center={center}
           options={options}
-          // onClick={onMapClick}
           onLoad={onMapLoad}
         >
           {markers.map((marker) => {
@@ -156,8 +153,7 @@ export default function Home() {
                 strokeColor: "#0000FF",
                 strokeOpacity: 1,
                 strokeWeight: 2,
-                strokeDasharray: "4 4", // Set the stroke to be dotted
-                // ... other polyline options
+                strokeDasharray: "4 4",
               }}
             />
           )}

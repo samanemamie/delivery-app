@@ -8,12 +8,17 @@ import { Button } from '../Button';
 
 //
 import { statusCard } from '../../../components/Providers';
+import usePricingAndBearerData from '../../../hooks/useFetch';
 
 
 
 
 
 function CardTransport() {
+
+    // const { bearerParcelsData, loading, error } = usePricingAndBearerData("pricing")
+    // console.log(bearerParcelsData, "CardTransport")
+
 
     const { cardTransportStatus, setCardTransportStatus } = useContext(statusCard)
 

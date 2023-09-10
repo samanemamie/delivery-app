@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
+const path = require("path")
+
 
 const nextConfig = {
   reactStrictMode: true,
@@ -7,11 +8,16 @@ const nextConfig = {
 }
 
 
+
 module.exports = {
+  reactStrictMode: true,
+  swcMinify: true,
   webpack: (config) => {
-    config.resolve.alias['@'] = path.join(__dirname, './src');
+    config.resolve.alias['#'] = path.resolve(__dirname, './src');
+    config.resolve.alias['#components'] = path.resolve(__dirname, './src/components');
+    config.resolve.alias['@'] = path.resolve(__dirname, './src');
     return config;
-  },
+  }
 };
 
 module.exports = nextConfig

@@ -2,40 +2,36 @@ import { db, storage, ref, getDownloadURL } from "../config/firebase";
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
-const usePricingAndBearerData = (initialValue = []) => {
-    const [bearerParcelsData, setBearerParcelsData] = useState([]);
+const useFetchParcelImg = (initialValue = []) => {
+    const [parcelImages, setParcelImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const loadImage = async () => {
             try {
-                const bearerSnapshot = await getDocs(collection(db, initialValue));
-                const bearerData = bearerSnapshot.docs.map(doc => doc.data());
-
-                const imagePromises = bearerData.map(async (img) => {
+                const imagePromises = initialValue.map(async (img) => {
                     const pathReference = ref(storage, img.parcel_img_url);
                     const url = await getDownloadURL(pathReference);
                     return {
-                        ...img,
-                        url
+                        id: img.parcel_type, url
                     };
                 });
 
                 const images = await Promise.all(imagePromises);
-                setBearerParcelsData(images);
+                setParcelImages(images);
+                setLoading(false);
             } catch (error) {
-                console.error('Error getting bearer data:', error);
+                console.error('Error retrieving images:', error);
                 setError(error);
-            } finally {
                 setLoading(false);
             }
         };
 
-        fetchData();
+        loadImage();
     }, [initialValue]);
 
-    return { bearerParcelsData, loading, error };
+    return { parcelImages, loading, error };
 };
 
-export default usePricingAndBearerData;
+export default useFetchParcelImg;

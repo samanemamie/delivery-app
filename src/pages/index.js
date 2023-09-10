@@ -32,30 +32,93 @@ import CardTransport from "../components/ui/card/card-transport";
 
 
 
-//
+
 import { collection, getDocs } from "firebase/firestore";
-import db from "../config/firebase"
+import { db, storage, ref, getDownloadURL } from "../config/firebase"
+
+import {
+  getFunctions,
+  httpsCallable,
+  connectFunctionsEmulator,
+} from "firebase/functions";
+
+
 
 
 export default function Home() {
 
-  const getPricingData = async () => {
+  const [imageURL, setImageURL] = useState('');
+
+  const functions = getFunctions();
+
+
+
+
+
+
+  const getPricingAndBearerData = async () => {
     try {
-      const pricingSnapshot = await getDocs(collection(db, 'pricing'));
-      const pricingData = pricingSnapshot.docs.map(doc => doc.data());
-      console.log("pricingData", pricingData); // Data is Empty
-      return pricingData;
+
+      // const bearerSnapshot = await getDocs(collection(db, 'bearerParcels'));
+      // const bearerData = bearerSnapshot.docs.map(doc => doc.data());
+      // console.log("bearerData", bearerData);
+
+      // const pricingFunction = functions().httpsCallable('pricing');
+      const pricingFunction = httpsCallable(functions, "pricing");
+      const pricingResult = await pricingFunction({
+        origin: {
+          lat: 65,
+          lng: 78,
+        },
+        destination: {
+          lat: 76,
+          lng: 67
+        },
+        vehicle_type: {
+          walking: true,
+          driving: false,
+          bicycling: false,
+        },
+        parcel_type: "Envelope",
+        parcel_description: "35 x 27 x 4 cm",
+        parcel_min_weight: 2.5,
+        parcel_max_weight: 0.1,
+      })
+
+      console.log(pricingResult, 'pricingResult');
+
+
+
+      // console.log(res, "res")
+
+      // const pathReference = ref(storage, 'parcelsImage/f2uKNTOPPlQrIQRtq6hx.png');
+
+      return { bearerData, pricingResult };
     } catch (error) {
-      console.error('Error getting pricing data:', error);
-      return [];
+      console.error('Error getting pricing and bearer data:', error);
+      return { pricingData: [], bearerData: [] };
     }
   };
 
-
-
   useEffect(() => {
-    getPricingData()
+    getPricingAndBearerData()
+
+
   }, [])
+
+  // useEffect(() => {
+  //   const loadImage = async () => {
+  //     try {
+  //       const pathReference = ref(storage, 'parcelsImage/f2uKNTOPPlQrIQRtq6hx.png');
+  //       const url = await getDownloadURL(pathReference);
+  //       setImageURL(url);
+  //     } catch (error) {
+  //       console.error('Error retrieving image:', error);
+  //     }
+  //   };
+
+  //   loadImage();
+  // }, []);
 
 
   const libraries = ["places"];
@@ -116,7 +179,6 @@ export default function Home() {
         <CardTransport />
       </LeftSideContainer>
       <RightSideContainer>
-
         <GoogleMap
           id="map"
           mapContainerStyle={mapContainerStyle}
@@ -159,12 +221,15 @@ export default function Home() {
           )}
 
         </GoogleMap>
-
       </RightSideContainer>
 
     </PageContainer>
   )
 }
+
+
+
+
 
 
 

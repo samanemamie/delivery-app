@@ -5,12 +5,21 @@ import { createContext, useState } from "react"
 
 export const statusCard = createContext()
 
+
 const Providers = ({ children }) => {
 
     const [cardOriginStatus, setCardOriginStatus] = useState(true)
     const [cardDestinationStatus, setCardDestinationStatus] = useState(false)
     const [cardParselsStatus, setCardParselsStatus] = useState(false)
     const [cardTransportStatus, setCardTransportStatus] = useState(false)
+
+
+    const [originlatLng, setOriginlatLng] = useState([])
+    const [destinationlatLng, setDestinationlatLng] = useState([])
+
+
+    const [transportData, setTransportData] = useState([])
+
 
 
 
@@ -22,8 +31,12 @@ const Providers = ({ children }) => {
             cardOriginStatus, setCardOriginStatus,
             cardDestinationStatus, setCardDestinationStatus,
             cardParselsStatus, setCardParselsStatus,
-            cardTransportStatus, setCardTransportStatus
+            cardTransportStatus, setCardTransportStatus,
 
+            originlatLng, setOriginlatLng,
+            destinationlatLng, setDestinationlatLng,
+
+            transportData, setTransportData
         }}>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
                 {children}

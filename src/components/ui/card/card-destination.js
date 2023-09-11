@@ -38,7 +38,6 @@ function CardDestination({ panTo }) {
     const { cardDestinationStatus, setCardDestinationStatus, setCardParselsStatus } = useContext(statusCard)
 
     const onSubmitForm = async (values, onSubmitProps) => {
-        console.log(values, "values")
         setCardDestinationStatus(false)
         setCardParselsStatus(true)
     }

@@ -1,58 +1,45 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 
 //
 import { Button } from '../Button';
+import Spiner from '../Spiner';
 
 
 
 //
 import { statusCard } from '../../../components/Providers';
-import usePricingAndBearerData from '../../../hooks/useFetch';
-import useFetchParcelImg from '../../../hooks/useFetchImg';
-import Spiner from '../Spiner';
 
+
+//
+import usePricingAndBearerData from '../../../hooks/useFetch';
 
 
 
 
 function CardParsels() {
 
-    const { bearerParcelsData, loading, error } = usePricingAndBearerData("bearerParcels")
+
+    const [items, setItems] = useState()
 
 
+
+    const { cardParselsStatus, setCardParselsStatus, setCardTransportStatus, setTransportData } = useContext(statusCard)
+
+    const { bearerParcelsData, loading, error } = usePricingAndBearerData("bearerParcels");
     console.log(bearerParcelsData, "bearerParcelsData")
 
-    const handleSubmit = (item) => {
-        console.log(item, "item")
+
+
+    const handleSubmit = (items) => {
+        setTransportData(items)
         setCardParselsStatus(false)
         setCardTransportStatus(true)
     }
 
-    const { cardParselsStatus, setCardParselsStatus, setCardTransportStatus } = useContext(statusCard)
-    // console.log(bearerParcelsData, "bearerParcelsData")
 
 
-    // const data = [
-    //     {
-    //         src: '/img/envelope.png',
-    //         size: 'Envelope',
-    //         detail1: '0.1 - 1.5 kg - Max',
-    //         detail2: '434 * 27 * 4 cm Max'
-    //     },
-    //     {
-    //         src: '/img/smallbox.png',
-    //         size: 'Envelope',
-    //         detail1: '0.1 - 1.5 kg - Max',
-    //         detail2: '434 * 27 * 4 cm Max'
-    //     },
-    //     {
-    //         src: '/img/envelope.png',
-    //         size: 'Envelope',
-    //         detail1: '0.1 - 1.5 kg - Max',
-    //         detail2: '434 * 27 * 4 cm Max'
-    //     }
-    // ]
+
 
 
 
@@ -67,7 +54,7 @@ function CardParsels() {
                         </p>
                         <p className="cursor-pointer dark:text-white">
                             {
-                                cardParselsStatus ? ("Clear") : <span onClick={() => setCardParselsStatus(true)} >Edit</span>
+                                cardParselsStatus ? ("Clear") : <span onClick={() => setCardParselsStatus(bearerParcelsData.length != 0 && true)} >Edit</span>
                             }
                         </p>
                     </div>
@@ -78,8 +65,8 @@ function CardParsels() {
 
                             <div className='px-3 py-3'>
                                 {
-                                    cardParselsStatus &&
-                                        bearerParcelsData && loading ?
+
+                                    loading ?
                                         (
                                             <div className='w-full px-5 py-3 bg-gray-100 border-b border-gray-300 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700'>
                                                 <Spiner />
@@ -88,7 +75,9 @@ function CardParsels() {
                                         :
                                         bearerParcelsData.map((item, index) => {
                                             return (
-                                                <div key={index} className='w-full px-5 py-3 bg-gray-100 border-b border-gray-300 rounded-sm shadow hover:bg-blue-500 dark:bg-gray-800 dark:border-gray-700'>
+                                                <div onClick={() => {
+                                                    setItems(item)
+                                                }} key={index} className={`w-full px-5 py-3  border-b border-gray-300 rounded-sm shadow hover:bg-blue-500 focus:bg-blue-500 dark:bg-gray-800 dark:border-gray-700 `}>
                                                     <div className='flex items-center justify-between '>
                                                         <div className='flex items-center gap-3'>
                                                             <div className='px-1 bg-gray-300 '>
@@ -125,7 +114,7 @@ function CardParsels() {
                             </div>
 
                             <div className='flex items-center justify-center' >
-                                <Button onClick={() => handleSubmit(item)} className="w-1/2" variant='map' size='lg' >
+                                <Button onClick={() => handleSubmit(items)} className="w-1/2" variant='map' size='lg' >
                                     Confirm
                                 </Button>
 

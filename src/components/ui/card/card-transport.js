@@ -8,19 +8,33 @@ import { Button } from '../Button';
 
 //
 import { statusCard } from '../../../components/Providers';
-import usePricingAndBearerData from '../../../hooks/useFetch';
 
 
+
+//
+import useFetchFunction from '../../../hooks/useFetchFunction';
+import Spiner from '../Spiner';
 
 
 
 function CardTransport() {
 
-    // const { bearerParcelsData, loading, error } = usePricingAndBearerData("pricing")
-    // console.log(bearerParcelsData, "CardTransport")
 
 
-    const { cardTransportStatus, setCardTransportStatus } = useContext(statusCard)
+    const {
+        cardTransportStatus,
+        setCardTransportStatus,
+        transportData,
+        originlatLng,
+        destinationlatLng,
+    } = useContext(statusCard)
+
+    const { pricingResult, loading, error } = useFetchFunction(originlatLng, destinationlatLng, transportData);
+
+
+    console.log(pricingResult, "pricingResult")
+
+
 
     const data = [
         {
@@ -55,7 +69,7 @@ function CardTransport() {
                         </p>
                         <p className="cursor-pointer dark:text-white">
                             {
-                                cardTransportStatus ? ("Clear") : <span onClick={() => setCardTransportStatus(true)} >Edit</span>
+                                cardTransportStatus ? ("Clear") : <span onClick={() => setCardTransportStatus(pricingResult.length != 0 && true)} >Edit</span>
                             }
                         </p>
                     </div>
@@ -67,22 +81,31 @@ function CardTransport() {
 
 
                                     {
-                                        data.map((item, index) => {
+                                        loading ?
 
-                                            return (
-                                                <div key={index} className='flex flex-col items-center justify-center w-full py-3 bg-gray-100 rounded-sm shadow hover:bg-blue-500 dark:bg-gray-800 dark:border-gray-700'>
-                                                    <div>
-                                                        <img className='w-14 h-fit' src={item.src} />
+                                            <div className='w-full px-5 py-3 bg-gray-100 border-b border-gray-300 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700'>
+                                                <Spiner />
+                                            </div>
+                                            :
+                                            pricingResult.map((item, index) => {
+
+                                                console.log(item, "item")
+
+                                                return (
+
+                                                    <div key={index} className='flex flex-col items-center justify-center w-full py-3 bg-gray-100 rounded-sm shadow hover:bg-blue-500 dark:bg-gray-800 dark:border-gray-700'>
+                                                        <div>
+                                                            <img className='w-14 h-fit' src={item.src} />
+                                                        </div>
+                                                        <div>
+                                                            <p>{item.price}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p>{item.time}</p>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <p>{item.detail1}</p>
-                                                    </div>
-                                                    <div>
-                                                        <p>{item.detail2}</p>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
+                                                )
+                                            })
                                     }
 
 
@@ -104,11 +127,10 @@ function CardTransport() {
                 </div>
 
 
-
             </div>
 
         </>
     )
-}
 
+}
 export default CardTransport

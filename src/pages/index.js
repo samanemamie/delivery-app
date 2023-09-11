@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 
 
@@ -7,6 +7,11 @@ import PageContainer from "../components/ui/container";
 import LeftSideContainer from "../components/ui/container/left-side-container";
 import RightSideContainer from "../components/ui/container/right-side-container";
 import CardOrigin from "../components/ui/card/card-origin";
+
+
+
+//
+import { statusCard } from "../components/Providers";
 
 
 
@@ -47,7 +52,8 @@ import {
 
 export default function Home() {
 
-  const [imageURL, setImageURL] = useState('');
+  const { originlatLng, setOriginlatLng, destinationlatLng, setDestinationlatLng } = useContext(statusCard)
+
 
   const functions = getFunctions();
 
@@ -59,11 +65,7 @@ export default function Home() {
   const getPricingAndBearerData = async () => {
     try {
 
-      // const bearerSnapshot = await getDocs(collection(db, 'bearerParcels'));
-      // const bearerData = bearerSnapshot.docs.map(doc => doc.data());
-      // console.log("bearerData", bearerData);
 
-      // const pricingFunction = functions().httpsCallable('pricing');
       const pricingFunction = httpsCallable(functions, "pricing");
       const pricingResult = await pricingFunction({
         origin: {
@@ -100,25 +102,11 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    getPricingAndBearerData()
-
-
-  }, [])
-
   // useEffect(() => {
-  //   const loadImage = async () => {
-  //     try {
-  //       const pathReference = ref(storage, 'parcelsImage/f2uKNTOPPlQrIQRtq6hx.png');
-  //       const url = await getDownloadURL(pathReference);
-  //       setImageURL(url);
-  //     } catch (error) {
-  //       console.error('Error retrieving image:', error);
-  //     }
-  //   };
+  //   getPricingAndBearerData()
 
-  //   loadImage();
-  // }, []);
+  // }, [])
+
 
 
   const libraries = ["places"];
@@ -153,7 +141,14 @@ export default function Home() {
     mapRef.current = map;
   }, []);
 
-  const panTo = useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng, name }) => {
+
+    if (name == "originAddress") {
+      setOriginlatLng({ lat: lat, lng: lng })
+    } else {
+      setDestinationlatLng({ lat: lat, lng: lng })
+    }
+
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
     setMarkers((province) => [

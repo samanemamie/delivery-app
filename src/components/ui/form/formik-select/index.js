@@ -49,7 +49,7 @@ export const FormikSelect = (props) => {
         try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
+            panTo({ lat, lng, name });
 
 
             setFieldValue(name, address);
@@ -69,7 +69,6 @@ export const FormikSelect = (props) => {
                 <ComboboxInput
                     className={`peer h-full w-full ${meta.touched && meta.error ? "border-b border-red-500 focus:border-b-2 focus:border-red-500 focus:after:border-red-500 " : "border-b-2 border-gray-400 focus:border-b-2 focus:border-blue-500 focus:after:border-blue-500 "} px-3  bg-transparent pt-4 pb-1.5 font-sans text-base font-normal text-gray-600 outline outline-0 transition-all  focus:outline-0 `}
                     {...field}
-
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}

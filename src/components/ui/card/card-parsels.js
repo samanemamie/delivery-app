@@ -27,12 +27,15 @@ function CardParsels() {
     const { cardParselsStatus, setCardParselsStatus, setCardTransportStatus, setTransportData } = useContext(statusCard)
 
     const { bearerParcelsData, loading, error } = usePricingAndBearerData("bearerParcels");
-    console.log(bearerParcelsData, "bearerParcelsData")
 
 
+
+    const [data, setData] = useState([])
+    // console.log(items, "data")
 
     const handleSubmit = (items) => {
-        setTransportData(items)
+        setData({ src: items.item.url, name: items.item.parcel_type })
+        setTransportData(items.item)
         setCardParselsStatus(false)
         setCardTransportStatus(true)
     }
@@ -61,67 +64,79 @@ function CardParsels() {
 
                     {
 
-                        <div className={`${cardParselsStatus ? 'block' : 'hidden'} px-3 pt-2`}>
+                        cardParselsStatus ?
+                            <div className={`${cardParselsStatus ? 'block' : 'hidden'} px-3 pt-2`}>
 
-                            <div className='px-3 py-3'>
-                                {
+                                <div className='px-3 py-3'>
+                                    {
 
-                                    loading ?
-                                        (
-                                            <div className='w-full px-5 py-3 bg-gray-100 border-b border-gray-300 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700'>
-                                                <Spiner />
-                                            </div>
-                                        )
-                                        :
-                                        bearerParcelsData.map((item, index) => {
-                                            return (
-                                                <div onClick={() => {
-                                                    setItems(item)
-                                                }} key={index} className={`w-full px-5 py-3  border-b border-gray-300 rounded-sm shadow hover:bg-blue-500 focus:bg-blue-500 dark:bg-gray-800 dark:border-gray-700 `}>
-                                                    <div className='flex items-center justify-between '>
-                                                        <div className='flex items-center gap-3'>
-                                                            <div className='px-1 bg-gray-300 '>
-
-                                                                <img src={item.url} alt="Parcel" className='px-3 py-3 w-14 h-14' />
-                                                            </div>
-                                                            <div>{item.parcel_type}</div>
-
-                                                        </div>
-
-                                                        <div className='flex flex-col items-center gap-1 text-xs'>
-                                                            <div className='flex items-center gap-1'>
-                                                                <p>{item.parcel_min_weight}</p>
-                                                                <p> -</p>
-                                                                <p>{item.parcel_max_weight}</p>
-                                                                <p>km</p>
-                                                                <p>max</p>
-                                                            </div>
-                                                            <div className='flex items-center gap-2'>
-                                                                <p>{item.parcel_description}</p>
-
-                                                                <p>max</p>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
+                                        loading ?
+                                            (
+                                                <div className='w-full px-5 py-3 bg-gray-100 border-b border-gray-300 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700'>
+                                                    <Spiner />
                                                 </div>
                                             )
-                                        })
+                                            :
+                                            bearerParcelsData.map((item, index) => {
+                                                return (
+                                                    <div onClick={() => {
+                                                        setItems({ item, index })
+                                                    }} key={index} className={`w-full px-5 py-3 bg-gray-100 border-b rounded-sm shadow hover:bg-blue-500 focus:bg-blue-500 dark:bg-gray-800 dark:border-gray-700 ${items != undefined && items.index == index ? "bg-blue-500" : ''}`} >
+                                                        <div className='flex items-center justify-between '>
+                                                            <div className='flex items-center gap-3'>
+                                                                <div className='px-1 bg-gray-300 '>
 
+                                                                    <img src={item.url} alt="Parcel" className='px-3 py-3 w-14 h-14' />
+                                                                </div>
+                                                                <div>{item.parcel_type}</div>
+
+                                                            </div>
+
+                                                            <div className='flex flex-col items-center gap-1 text-xs'>
+                                                                <div className='flex items-center gap-1'>
+                                                                    <p>{item.parcel_min_weight}</p>
+                                                                    <p> -</p>
+                                                                    <p>{item.parcel_max_weight}</p>
+                                                                    <p>km</p>
+                                                                    <p>max</p>
+                                                                </div>
+                                                                <div className='flex items-center gap-2'>
+                                                                    <p>{item.parcel_description}</p>
+
+                                                                    <p>max</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                )
+                                            })
+
+                                    }
+
+                                </div>
+
+                                <div className='flex items-center justify-center' >
+                                    <Button onClick={() => handleSubmit(items)} className="w-1/2" variant='map' size='lg' >
+                                        Confirm
+                                    </Button>
+
+                                </div>
+                            </div>
+
+                            :
+                            <div className='px-3 pt-3'>
+                                {
+                                    data.length != 0 ?
+                                        <div className='flex items-center justify-start gap-2'>
+                                            <img className='w-8 h-6' src={data.src} />
+                                            <p>{data.name}</p>
+                                        </div>
+                                        :
+                                        null
                                 }
-
                             </div>
-
-                            <div className='flex items-center justify-center' >
-                                <Button onClick={() => handleSubmit(items)} className="w-1/2" variant='map' size='lg' >
-                                    Confirm
-                                </Button>
-
-                            </div>
-                        </div>
-
-
 
                     }
                 </div>

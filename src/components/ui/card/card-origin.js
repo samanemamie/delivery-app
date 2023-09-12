@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Form, Formik } from "formik";
 
 
@@ -6,7 +6,7 @@ import { Form, Formik } from "formik";
 //
 import FormikSelect from '../form/formik-select'
 import FormikInput from '../form/formik-input';
-import { advancedSchema } from '../../../lib/validations';
+import { CardOriginSchema, cardOriginSchema } from '../../../lib/validations';
 
 
 
@@ -28,14 +28,16 @@ function CardOrigin({ panTo }) {
 
     const { cardOriginStatus, setCardOriginStatus, setCardDestinationStatus } = useContext(statusCard)
 
+    const [address, setAddress] = useState()
+
 
 
     const onSubmitForm = async (values, onSubmitProps) => {
-
+        setAddress(values.originAddress)
         setCardOriginStatus(false)
         setCardDestinationStatus(true)
 
-        console.log(values, "values")
+
     }
 
 
@@ -50,7 +52,7 @@ function CardOrigin({ panTo }) {
                         phoneNumber: "",
                         sendersName: "",
                     }}
-                    // validationSchema={advancedSchema}
+                    // validationSchema={cardOriginSchema}
                     onSubmit={onSubmitForm}
                 >
                     {(props) => {
@@ -115,7 +117,9 @@ function CardOrigin({ panTo }) {
                                             </>
 
                                             :
-                                            <p className='px-3'>sadsadsas</p>
+                                            <p className='w-4/5 px-3 pt-3'>
+                                                {address ? address : null}
+                                            </p>
 
                                     }
 

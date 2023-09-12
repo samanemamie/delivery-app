@@ -79,42 +79,20 @@ export const FormikSelect = (props) => {
                 <ComboboxPopover className="p-5 bg-gray-100 rounded-sm">
                     <ComboboxList className="z-50 my-2">
                         {status === "OK" &&
-                            data.map(({ id, description }) => (
-                                <div className="flex items-center gap-2 py-2 ">
+                            data.map(({ id, description, index }) => (
+                                <div key={index} className="flex items-center gap-2 py-2 ">
 
                                     <Icons.MapPin color="gray" size={15} />
-                                    <ComboboxOption key={id} value={description} />
-
-
+                                    <ComboboxOption key={id} value={description} className="cursor-pointer" />
                                 </div>
-
                             ))
-
-
                         }
-
                     </ComboboxList>
                 </ComboboxPopover>
             </Combobox>
 
-            {/* 
-            <ReactSelect
-                {...field}
-                defaultValue={getSingleValue()}
-                onChange={(data) => {
-                    onChange && onChange(data);
-                    if (props?.isMulti) {
-                        setFieldValue(
-                            name,
-                            data?.map((d) => d.value),
-                        );
-                    } else {
-                        setFieldValue(name, data.value);
-                    }
-                }}
-                {...rest}
-            />
-            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>} */}
+
+            {meta.error && meta.touched && <p className="w-full pr-2 -mt-3 text-sm font-light text-red-400 ">{meta.error}</p>}
 
         </>
     );

@@ -19,7 +19,7 @@ const FormikRadioButtons = (props) => {
                     ({ field }) => {
                         return options.map(option => {
                             return (
-                                < React.Fragment key={option.key}>
+                                < div key={option.key}>
                                     <div className="flex items-center gap-3 ">
                                         <input
                                             type="radio"
@@ -31,13 +31,14 @@ const FormikRadioButtons = (props) => {
                                         />
                                         <label className="text-sm font-normal text-gray-400" htmlFor={option.value}>{option.key}</label>
                                     </div>
-                                </React.Fragment>
+                                    {meta.touched && meta.error && <div className="mt-5 text-sm text-red-400 justify-self-start md:mt-0">{meta.error}</div>}
+
+                                </div>
                             )
                         })
                     }
                 }
             </Field>
-            {meta.touched && meta.error && <div className="mt-5 text-sm text-red-400 justify-self-start md:mt-0">{meta.error}</div>}
 
 
         </>

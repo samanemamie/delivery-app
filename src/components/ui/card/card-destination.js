@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 
 
@@ -8,7 +8,7 @@ import { Form, Formik } from "formik";
 import FormikInput from '../form/formik-input';
 import FormikSelect from '../form/formik-select'
 import FormikRadioButtons from '../form/formik-radio-buttons';
-import { advancedSchema } from '../../../lib/validations';
+import { cardDestinationSchema } from '../../../lib/validations';
 
 
 
@@ -26,8 +26,8 @@ import { statusCard } from '../../../components/Providers';
 
 
 const radioOptions = [
-    { value: "manual", key: "Confirmation Code", id: "1" },
-    { value: "chain", key: "Note Needed", id: "2" },
+    { value: "confirmation", key: "Confirmation Code", id: "1" },
+    { value: "note", key: "Note Needed", id: "2" },
 
 ];
 
@@ -35,9 +35,13 @@ const radioOptions = [
 
 function CardDestination({ panTo }) {
 
-    const { cardDestinationStatus, setCardDestinationStatus, setCardParselsStatus } = useContext(statusCard)
+    const { cardDestinationStatus, setCardDestinationStatus, setCardParselsStatus, destinationlatLng } = useContext(statusCard)
 
-    const onSubmitForm = async (values, onSubmitProps) => {
+
+    const [address, setAddress] = useState()
+
+    const onSubmitForm = async (values) => {
+        setAddress(values.destinationAddress)
         setCardDestinationStatus(false)
         setCardParselsStatus(true)
     }
@@ -52,9 +56,10 @@ function CardDestination({ panTo }) {
                         address: "",
                         moreDetails: "",
                         phoneNumber: "",
-                        sendersName: "",
+                        recipientName: "",
+                        delevery_approval: "",
                     }}
-                    // validationSchema={advancedSchema}
+                    // validationSchema={cardDestinationSchema}
                     onSubmit={onSubmitForm}
                 >
                     {(props) => {
@@ -75,7 +80,7 @@ function CardDestination({ panTo }) {
 
                                         <p className="cursor-pointer dark:text-white">
                                             {
-                                                cardDestinationStatus ? ("Clear") : <span onClick={() => setCardDestinationStatus(true)} >Edit</span>
+                                                cardDestinationStatus ? ("Clear") : <span onClick={() => setCardDestinationStatus(destinationlatLng.length != 0 && true)} >Edit</span>
                                             }
                                         </p>
                                     </div>
@@ -110,8 +115,8 @@ function CardDestination({ panTo }) {
                                                     <p className='text-sm'>Delevery Approval by :</p>
 
                                                     <div className='flex items-center gap-[105px] pt-2'>
-                                                        <FormikRadioButtons label=" سیستم پرورش"
-                                                            name="breeding_system"
+                                                        <FormikRadioButtons
+                                                            name="delevery_approval"
                                                             options={radioOptions}
 
                                                         />
@@ -127,7 +132,10 @@ function CardDestination({ panTo }) {
                                                 </div>
                                             </>
                                             :
-                                            <p>sdsdasd</p>
+
+                                            <p className='w-4/5 px-3 pt-3 '>
+                                                {address ? address : null}
+                                            </p>
                                     }
 
 

@@ -38,75 +38,10 @@ import CardTransport from "../components/ui/card/card-transport";
 
 
 
-import { collection, getDocs } from "firebase/firestore";
-import { db, storage, ref, getDownloadURL } from "../config/firebase"
-
-import {
-  getFunctions,
-  httpsCallable,
-  connectFunctionsEmulator,
-} from "firebase/functions";
-
-
-
 
 export default function Home() {
 
-  const { originlatLng, setOriginlatLng, destinationlatLng, setDestinationlatLng } = useContext(statusCard)
-
-
-  const functions = getFunctions();
-
-
-
-
-
-
-  const getPricingAndBearerData = async () => {
-    try {
-
-
-      const pricingFunction = httpsCallable(functions, "pricing");
-      const pricingResult = await pricingFunction({
-        origin: {
-          lat: 65,
-          lng: 78,
-        },
-        destination: {
-          lat: 76,
-          lng: 67
-        },
-        vehicle_type: {
-          walking: true,
-          driving: false,
-          bicycling: false,
-        },
-        parcel_type: "Envelope",
-        parcel_description: "35 x 27 x 4 cm",
-        parcel_min_weight: 2.5,
-        parcel_max_weight: 0.1,
-      })
-
-      console.log(pricingResult, 'pricingResult');
-
-
-
-      // console.log(res, "res")
-
-      // const pathReference = ref(storage, 'parcelsImage/f2uKNTOPPlQrIQRtq6hx.png');
-
-      return { bearerData, pricingResult };
-    } catch (error) {
-      console.error('Error getting pricing and bearer data:', error);
-      return { pricingData: [], bearerData: [] };
-    }
-  };
-
-  // useEffect(() => {
-  //   getPricingAndBearerData()
-
-  // }, [])
-
+  const { setOriginlatLng, setDestinationlatLng } = useContext(statusCard)
 
 
   const libraries = ["places"];

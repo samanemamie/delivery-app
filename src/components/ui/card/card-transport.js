@@ -32,34 +32,11 @@ function CardTransport() {
     const { pricingResult, loading, error } = useFetchFunction(originlatLng, destinationlatLng, transportData);
 
 
-    console.log(pricingResult, "pricingResult")
-
-
-
-    const data = [
-        {
-            src: '/img/motor.png',
-            detail1: '0.1 - 1.5 kg - Max',
-            detail2: '13-18 min'
-        },
-        {
-            src: '/img/walk1.png',
-
-            detail1: '0.1 - 1.5 kg - Max',
-            detail2: '13-18 min'
-        },
-        {
-            src: '/img/bike.png',
-
-            detail1: '0.1 - 1.5 kg - Max',
-            detail2: '13-18 min'
-        }
-    ]
 
     return (
         <>
 
-            <div className="w-full max-w-full px-3 py-3 bg-white border-b-2 border-gray-300 rounded-md shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full min-h-[120px] max-w-full px-3 py-3 bg-white border-b-2 border-gray-300 rounded-md shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
                 <div className="space-y-3 text-gray-400">
 
                     <div className='flex items-center justify-between text-base font-normal'>
@@ -89,8 +66,6 @@ function CardTransport() {
                                             :
                                             pricingResult.map((item, index) => {
 
-                                                console.log(item, "item")
-
                                                 return (
 
                                                     <div key={index} className='flex flex-col items-center justify-center w-full py-3 bg-gray-100 rounded-sm shadow hover:bg-blue-500 dark:bg-gray-800 dark:border-gray-700'>
@@ -119,9 +94,7 @@ function CardTransport() {
                                 </div>
                             </>
                             :
-                            <p>
-                                asdasdd
-                            </p>
+                            null
                     }
 
                 </div>

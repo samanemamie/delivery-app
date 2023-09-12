@@ -4,9 +4,9 @@ import { Form, Formik } from "formik";
 
 
 //
-
+import FormikSelect from '../form/formik-select'
 import FormikInput from '../form/formik-input';
-import { CardOriginSchema, cardOriginSchema } from '../../../lib/validations';
+import { cardOriginSchema } from '../../../lib/validations';
 
 
 
@@ -18,7 +18,6 @@ import { Button } from '../Button';
 
 //
 import { statusCard } from '../../../components/Providers';
-import FormikSelectOrigin from '../form/formik-select-origin';
 
 
 
@@ -85,7 +84,7 @@ function CardOrigin({ panTo }) {
                                                 <div className="space-y-3 "
 
                                                 >
-                                                    <FormikSelectOrigin
+                                                    <FormikSelect
                                                         name="originAddress"
                                                         label="Address"
                                                         placeholder={"Address"}

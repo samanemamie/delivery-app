@@ -34,7 +34,9 @@ import CardTransport from "../components/ui/card/card-transport";
 
 
 
+
 export default function Home() {
+
 
 
   const libraries = ["places"];
@@ -69,9 +71,7 @@ export default function Home() {
     mapRef.current = map;
   }, []);
 
-  const panTo = useCallback(({ lat, lng, name }) => {
-
-
+  const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
     setMarkers((province) => [

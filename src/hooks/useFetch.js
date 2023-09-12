@@ -11,6 +11,8 @@ const usePricingAndBearerData = (initialValue = []) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
+
     useEffect(() => {
         if (originlatLng.length !== 0 && destinationlatLng.length !== 0) {
             const fetchData = async () => {

@@ -29,6 +29,8 @@ function CardTransport() {
         destinationlatLng,
     } = useContext(statusCard)
 
+
+
     const { pricingResult, loading, error } = useFetchFunction(originlatLng, destinationlatLng, transportData);
 
 
@@ -64,7 +66,7 @@ function CardTransport() {
                                                 <Spiner />
                                             </div>
                                             :
-                                            pricingResult.map((item, index) => {
+                                            pricingResult.length != 0 ? pricingResult.map((item, index) => {
 
                                                 return (
 
@@ -81,6 +83,12 @@ function CardTransport() {
                                                     </div>
                                                 )
                                             })
+                                                :
+                                                <div className='flex items-center justify-center w-full gap-2'>
+                                                    <span>there is no data</span>
+                                                    <Icons.HelpCircle color="red" size={20} />
+
+                                                </div>
                                     }
 
 

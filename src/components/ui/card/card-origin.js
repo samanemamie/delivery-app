@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 
 
 //
-import FormikSelect from '../form/formik-select'
+
 import FormikInput from '../form/formik-input';
 import { CardOriginSchema, cardOriginSchema } from '../../../lib/validations';
 
@@ -18,6 +18,7 @@ import { Button } from '../Button';
 
 //
 import { statusCard } from '../../../components/Providers';
+import FormikSelectOrigin from '../form/formik-select-origin';
 
 
 
@@ -52,7 +53,7 @@ function CardOrigin({ panTo }) {
                         phoneNumber: "",
                         sendersName: "",
                     }}
-                    // validationSchema={cardOriginSchema}
+                    validationSchema={cardOriginSchema}
                     onSubmit={onSubmitForm}
                 >
                     {(props) => {
@@ -84,17 +85,19 @@ function CardOrigin({ panTo }) {
                                                 <div className="space-y-3 "
 
                                                 >
-                                                    <FormikSelect
+                                                    <FormikSelectOrigin
                                                         name="originAddress"
                                                         label="Address"
                                                         placeholder={"Address"}
                                                         panTo={panTo}
                                                     />
+                                                    <div>
+                                                        <FormikInput
+                                                            label="More Details / Message for the Rider"
+                                                            name="moreDetails"
+                                                        />
+                                                    </div>
 
-                                                    <FormikInput
-                                                        label="More Details / Message for the Rider"
-                                                        name="moreDetails"
-                                                    />
                                                     <div className='flex items-center gap-2'>
                                                         <FormikInput
                                                             label="Phone Number"

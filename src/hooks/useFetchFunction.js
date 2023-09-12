@@ -17,6 +17,7 @@ const useFetchFunction = (originlatLng, destinationlatLng, transportData) => {
         if (transportData.length !== 0) {
             const fetchData = async () => {
                 try {
+                    setLoading(true)
                     const pricingFunction = httpsCallable(functions, "pricing");
                     const result = await pricingFunction({
                         origin: {
@@ -70,8 +71,9 @@ const useFetchFunction = (originlatLng, destinationlatLng, transportData) => {
 
 
 
-
                     setPricingResult(pricingData);
+
+
                     setLoading(false);
 
                 } catch (error) {

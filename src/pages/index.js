@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 
 
@@ -7,11 +7,6 @@ import PageContainer from "../components/ui/container";
 import LeftSideContainer from "../components/ui/container/left-side-container";
 import RightSideContainer from "../components/ui/container/right-side-container";
 import CardOrigin from "../components/ui/card/card-origin";
-
-
-
-//
-import { statusCard } from "../components/Providers";
 
 
 
@@ -40,8 +35,6 @@ import CardTransport from "../components/ui/card/card-transport";
 
 
 export default function Home() {
-
-  const { setOriginlatLng, setDestinationlatLng } = useContext(statusCard)
 
 
   const libraries = ["places"];
@@ -78,11 +71,6 @@ export default function Home() {
 
   const panTo = useCallback(({ lat, lng, name }) => {
 
-    if (name == "originAddress") {
-      setOriginlatLng({ lat: lat, lng: lng })
-    } else {
-      setDestinationlatLng({ lat: lat, lng: lng })
-    }
 
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
@@ -126,11 +114,6 @@ export default function Home() {
                 onClick={() => onMarkerClick(marker)}
                 key={`${marker.lat}-${marker.lng}`}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                icon={{
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                  scaledSize: new window.google.maps.Size(30, 30),
-                }}
               />
             )
 

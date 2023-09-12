@@ -6,7 +6,7 @@ import { useContext, useState } from 'react'
 //
 import { Form, Formik } from "formik";
 import FormikInput from '../form/formik-input';
-import FormikSelect from '../form/formik-select'
+
 import FormikRadioButtons from '../form/formik-radio-buttons';
 import { cardDestinationSchema } from '../../../lib/validations';
 
@@ -20,6 +20,7 @@ import Icons from '../Icons';
 
 //
 import { statusCard } from '../../../components/Providers';
+import { FormikSelectDestination } from '../form/formik-select-destination';
 
 
 
@@ -59,7 +60,7 @@ function CardDestination({ panTo }) {
                         recipientName: "",
                         delevery_approval: "",
                     }}
-                    // validationSchema={cardDestinationSchema}
+                    validationSchema={cardDestinationSchema}
                     onSubmit={onSubmitForm}
                 >
                     {(props) => {
@@ -91,7 +92,7 @@ function CardDestination({ panTo }) {
                                             <>
                                                 <div className="space-y-3 "
                                                 >
-                                                    <FormikSelect
+                                                    <FormikSelectDestination
                                                         name="destinationAddress"
                                                         label="Address"
                                                         placeholder={"Address"}

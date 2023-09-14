@@ -22,6 +22,7 @@ function CardParsels() {
 
     const [items, setItems] = useState()
 
+    const [data, setData] = useState([])
 
 
     const { cardParselsStatus, setCardParselsStatus, setCardTransportStatus, setTransportData } = useContext(statusCard)
@@ -30,8 +31,7 @@ function CardParsels() {
 
 
 
-    const [data, setData] = useState([])
-    // console.log(items, "data")
+
 
     const handleSubmit = (items) => {
         setData({ src: items.item.url, name: items.item.parcel_type })
@@ -39,10 +39,6 @@ function CardParsels() {
         setCardParselsStatus(false)
         setCardTransportStatus(true)
     }
-
-
-
-
 
 
 
@@ -79,9 +75,13 @@ function CardParsels() {
                                             :
                                             bearerParcelsData.map((item, index) => {
                                                 return (
-                                                    <div onClick={() => {
-                                                        setItems({ item, index })
-                                                    }} key={index} className={`w-full px-5 py-3 bg-gray-100 border-b rounded-sm shadow hover:bg-blue-500 focus:bg-blue-500 dark:bg-gray-800 dark:border-gray-700 ${items != undefined && items.index == index ? "bg-blue-500" : ''}`} >
+                                                    <div
+                                                        key={index}
+                                                        onClick={() => {
+                                                            setItems({ item, index })
+                                                        }}
+                                                        className={`w-full px-5 py-3  border-b rounded-sm shadow hover:bg-blue-500 focus:bg-blue-500 dark:bg-gray-800 dark:border-gray-700 ${items?.index === index ? "!bg-blue-500" : '!bg-gray-100'}`}
+                                                    >
                                                         <div className='flex items-center justify-between '>
                                                             <div className='flex items-center gap-3'>
                                                                 <div className='px-1 bg-gray-300 '>
